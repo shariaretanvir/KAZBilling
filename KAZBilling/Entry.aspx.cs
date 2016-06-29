@@ -17,19 +17,22 @@ namespace KAZBilling
         protected void Buttonshow_Click(object sender, EventArgs e)
         {
             DateTime datetime = Convert.ToDateTime(datetimeTextBox.Text);
-            var hour = (datetime.Hour)* 60;
-            var min = datetime.Minute;
-            var totralMinute = hour + min;
+            //var hour = (datetime.Hour)* 60;
+            //var min = datetime.Minute;
+            //var totralMinute = hour + min;
             var duration = Convert.ToInt32(durationTextBox.Text);
-            int a = GetBill(totralMinute,duration);
+            int a = GetBill(datetime, duration);
             costLabel.Text = a.ToString() +"Taka";
         }
 
-        private int GetBill(int date, int duration)
+        private int GetBill(DateTime date, int duration)
         {
+            var hour = (date.Hour) * 60;
+            var min = date.Minute;
+            var totalMinute = hour + min;
             int count = 0;
-            int limit = date + duration;
-            for (int i = date; i < limit; i++)
+            int limit = totalMinute + duration;
+            for (int i = totalMinute; i < limit; i++)
             {
                 if ((0<=i && i <180)  || (0 <= i%720 && i%720 < 180))
                 {
